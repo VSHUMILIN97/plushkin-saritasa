@@ -56,6 +56,39 @@ class TestUserInterface(unittest.TestCase):
             )
         )
 
+        # we suppose that a user entered 2
+        self.assertEqual(
+            self.ui.show_cleaning_input(1),
+            (
+                [
+                    '/home/alexey/Downloads/Fluent_Python.pdf',
+                    '/home/alexey/Downloads/Photos1/IMG_1670.JPG',
+                    '/home/alexey/Downloads/IMG_1664.JPG'
+                ],
+                2
+            )
+        )
+
+        # we suppose that a user entered Enter
+
+        self.assertEqual(
+            self.ui.show_cleaning_input(1),
+            (0, 0)
+        )
+
+        # we suppose that a user entered 2
+        self.assertEqual(
+            self.ui.show_cleaning_input(1),
+            (
+                [
+                    '/home/alexey/Downloads/Fluent_Python.pdf',
+                    '/home/alexey/Downloads/Photos1/IMG_1670.JPG',
+                    '/home/alexey/Downloads/IMG_1664.JPG'
+                ],
+                2
+            )
+        )
+
     def test_report(self):
 
         cl_report1 = (['mistake1', 'mistake2'], 1, 2, 3)

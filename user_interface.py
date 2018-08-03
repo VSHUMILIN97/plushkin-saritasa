@@ -33,6 +33,7 @@ class UserInterface:
         # count cleaned size
         self._size_cleaned = 0
 
+        # the amount of clone groups
         self.clone_groups_len = len(search_report.clone_groups)
 
     @property
@@ -41,6 +42,7 @@ class UserInterface:
 
     def exceptions_information(self):
         """Information about exceptions that occurred during the search"""
+
         if self.search_report.unavailable_files:
             print("The following files can't be read:")
 
@@ -69,6 +71,7 @@ class UserInterface:
         self.general_information()
 
         self.exceptions_information()
+
         # for each group of duplicates that were found
         for group_id, file_clones in self.search_report.clone_groups.items():
 
@@ -95,12 +98,10 @@ class UserInterface:
     def show_cleaning_input(self, group_index):
         """Input interface that is shown in interacting mode"""
 
-        self.general_information()
+        if group_index == 0:
+            print(self.big_line)
+            print('CLEANING started')
 
-        self.exceptions_information()
-
-        print(self.big_line)
-        print('CLEANING started')
         print(self.big_line)
 
         print(
@@ -131,7 +132,12 @@ class UserInterface:
         while True:
             try:
                 # let a user choose which of them to keep
-                file_to_keep = int(input())
+                file_to_keep = input()
+
+                if file_to_keep == '':
+                    return 0, 0
+                else:
+                    file_to_keep = int(file_to_keep)
 
                 print(
                     'File {} was kept'.format(
@@ -159,13 +165,10 @@ class UserInterface:
     ):
         """Report of the previous remove"""
 
-        print("Errors occurred:")
+        if cleaner_report[0]:
+            print("Errors occurred:")
         for error in cleaner_report[0]:
             print(error)
-
-        print('Files removed:', cleaner_report[1])
-        print('Errors:', cleaner_report[3])
-        print('Size_cleaned:', cleaner_report[2])
 
         # add their values to overall variables
         self._removed_files += cleaner_report[1]
