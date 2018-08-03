@@ -51,7 +51,7 @@ class Cleaner:
                         f'{e}\n')
                     self.__size_cleaned = 0
             else:
-                self.__errors_occurred.append(f'{path} is not a file\n')
+                self.__errors_occurred.append(f'{path} is not a found\n')
 
     def report(self):
         """ Method runs inner method __remove to store values in

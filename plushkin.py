@@ -1,9 +1,9 @@
 import os
 import click
 import sys
-import Searcher as scr, \
-    UserInterface as ui,\
-    cleaner as clr
+import searcher as scr
+import user_interface as ui
+import cleaner as clr
 
 
 @click.command(options_metavar='<path>',

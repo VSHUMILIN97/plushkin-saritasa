@@ -1,5 +1,5 @@
 import unittest
-from UserInterface import UserInterface
+from user_interface import UserInterface
 
 
 class TestUserInterface(unittest.TestCase):
