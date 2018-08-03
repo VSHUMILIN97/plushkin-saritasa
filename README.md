@@ -8,7 +8,7 @@
 #### This is not a problem anymore.
 
 We are glad to introduce you a tool which can help you to clean your folders and remove all duplicates.
-Don't worry, this is not that type of app, that will erase everything from your computer.
+Don't worry, this is not that type of an app, that will erase everything from your computer.
 We will **gently ask you** whether do you want to delete all this *SECRETIMAGEOFNUDEKATEFROMPARTY.img* copies stored in different folders (~~for safety reasons of course~~) or not. 
 Just provide plushkin.py with a directory path to find and you'll know if there are any garbage duplicates saved for the rainy day or everything is clean and fresh.
 
@@ -22,7 +22,7 @@ It is very simple. Like a piece of cake.
 ```python3 plushkin.py .```
 
 See? That's very simple
-However, if you feel confident about Kate's photoes do this
+However, if you feel confident about Kate's photoes, try **this**
 
 ```python3 plushkin.py /path/to/folder -d```
 
