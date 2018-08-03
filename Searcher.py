@@ -25,6 +25,9 @@ class Searcher:
         groups_of_clones = {}  # dict: {group_id:[file_names]}
         id = 0
         for file_name in files:
+            # zero size files will be ignored
+            if not os.path.getsize(file_name):
+                continue
             try:
                 for group in groups_of_clones.values():
                     flag_break = False
@@ -37,8 +40,8 @@ class Searcher:
 
                     if flag_break:
                         break
-                else:
                     # if clone not found creating new list with file_name in it
+                else:
                     groups_of_clones[id] = [file_name]
                     id += 1
 
@@ -46,7 +49,6 @@ class Searcher:
                 errors_reading_files.add(file_name)
 
         # exclude 1 size groups
-
         id = 0
         groups_of_clones_exclude_1 = {}
         for x, y in groups_of_clones.items():
