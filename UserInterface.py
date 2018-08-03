@@ -40,7 +40,7 @@ class UserInterface:
     def exceptions_information(self):
         """Information about exceptions that occurred during the search"""
 
-        print("The next files can't be read:")
+        print("The following files can't be read:")
 
         for file in self.search_report.unavailable_files:
             print(file)
