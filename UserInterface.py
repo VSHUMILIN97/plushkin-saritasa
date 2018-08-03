@@ -38,7 +38,7 @@ class UserInterface:
 
         print("The next files can't be read:")
 
-        for file in self.search_report.exceptions:
+        for file in self.search_report.unavailable_files:
             print(file)
 
     def general_information(self):
@@ -56,10 +56,6 @@ class UserInterface:
             'Folders scanned:',
             self.search_report.scanned_folders_num
         )
-        print(
-            'Duplications found:',
-            self.search_report.duplications_num
-        )
 
     def show_search_report(self):
         """Report that is shown in displaying mode"""
@@ -73,6 +69,11 @@ class UserInterface:
 
             print(self.big_line)
 
+            print(
+                'Duplications found:',
+                len(file_clones)
+            )
+
             # show the file's size (as an instance, we take the first file)
             size = os.path.getsize(file_clones[0])
             print(f'size: {size} bytes')
@@ -82,7 +83,7 @@ class UserInterface:
 
             # list all files
             for file in file_clones:
-                print(f'[{file.index()}]: {file} (Created: {date})')
+                print(f'[{file_clones.index(file)}]: {file} (Created: {date})')
 
             print(self.big_line)
 
@@ -97,22 +98,46 @@ class UserInterface:
         print('CLEANING started')
         print(self.big_line)
 
+        print(
+            'Duplications found:',
+            len(self.search_report.clone_groups[group_index])
+        )
+
         # list files from the particular group
         for file in self.search_report.clone_groups[group_index]:
-            print(f'[{file.index()}]: {file} (Created: {date})')
 
-        # let a user choose which of them to keep
-        file_to_keep = input(
-            'Choose file to keep by entering '
-            'its number or press enter to skip it'
-        )
+            # index of the duplicate
+            index = self.search_report.clone_groups[group_index].index(file)
 
-        # notify the user's decision
+            # show the date of creation the file
+            date = time.ctime(
+                os.path.getctime(
+                    self.search_report.clone_groups[group_index][0]
+                )
+            )
+
+            print(f'[{index}]: {file} (Created: {date})')
+
         print(
-            f'File'
-            f' {self.search_report.clone_groups[group_index][file_to_keep]}'
-            f' was kept'
+            'Choose file to keep by entering its number or press enter to '
+            'skip it\n'
         )
+
+        while True:
+            try:
+                # let a user choose which of them to keep
+                file_to_keep = int(input())
+
+                print(
+                    'File {} was kept'.format(
+                        self.search_report.clone_groups[group_index][
+                            file_to_keep]
+                    )
+                )
+                break
+
+            except (ValueError, IndexError) as e:
+                print(e)
 
         # create a tuple for Cleaner, ([duplicates], which_to_delete)
         what_to_delete = (
