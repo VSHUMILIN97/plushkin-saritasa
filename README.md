@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1cecd97ab8f3457099473e7f29177874)](https://www.codacy.com/project/VSHUMILIN97/plushkin-saritasa/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=VSHUMILIN97/plushkin-saritasa&amp;utm_campaign=Badge_Grade_Dashboard)
 # plushkin-saritasa
 ### Rationale
 #### Ever encountered this situation once in your life?
