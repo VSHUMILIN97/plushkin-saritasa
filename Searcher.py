@@ -45,14 +45,14 @@ class Searcher:
             except BaseException:
                 errors_reading_files.add(file_name)
 
+        # exclude 1 size groups
+
         id = 0
         groups_of_clones_exclude_1 = {}
         for x, y in groups_of_clones.items():
             if len(groups_of_clones[x]) > 1:
                 groups_of_clones_exclude_1[id] = y[:]
                 id += 1
-
-        # groups_of_clones = {x: y for x, y in groups_of_clones.items() if len(y) > 1}
 
         return FileManager(clone_groups=groups_of_clones_exclude_1, exceptions=errors_reading_files,
                            sc_files_num=len(files), sc_fold_num=number_of_scanned_folders, folder_name=path)
