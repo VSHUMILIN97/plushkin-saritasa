@@ -1,13 +1,11 @@
 import unittest
 from unittest import mock
-from Searcher import Searcher
 
 
 class MyTestCase(unittest.TestCase):
     @mock.patch("Searcher.open")
     def test_something(self, mock_open):
         pass
-
 
 
 if __name__ == '__main__':

@@ -1,6 +1,9 @@
 import os
 import click
 import sys
+import Searcher as scr, \
+    UserInterface as ui,\
+    cleaner as clr
 
 
 @click.command(options_metavar='<path>',
@@ -16,10 +19,14 @@ def plushkin(path, delete):
     """
     sys.excepthook = excepthook
     if os.path.isdir(path):
-        print('Searcher look-up')
+        search_results = scr.Searcher.search_clones(path)  # FM
+        interface_reports = ui.UserInterface(search_results)
+        interface_reports.show_search_report()
         if delete:
-            for _ in range(3):
-                print('Interface and cleaner')
+            for group_index in range(interface_reports.clone_groups_len):
+                dup_group, save_index = interface_reports.show_cleaning_input(group_index)
+                interface_reports.report(clr.Cleaner(dup_group, save_index).report())
+            interface_reports.overall()
     else:
         raise DirectoryNotFoundException('Path not found')
 

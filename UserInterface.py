@@ -33,14 +33,16 @@ class UserInterface:
         # count cleaned size
         self._size_cleaned = 0
 
+        self.clone_groups_len = len(search_report.clone_groups)
+
     @property
     def search_report(self):
         return self.__search_report
 
     def exceptions_information(self):
         """Information about exceptions that occurred during the search"""
-
-        print("The following files can't be read:")
+        if self.search_report.unavailable_files:
+            print("The following files can't be read:")
 
         for file in self.search_report.unavailable_files:
             print(file)
@@ -67,7 +69,6 @@ class UserInterface:
         self.general_information()
 
         self.exceptions_information()
-
         # for each group of duplicates that were found
         for group_id, file_clones in self.search_report.clone_groups.items():
 
