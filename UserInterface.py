@@ -19,7 +19,7 @@ class UserInterface:
 
         """
 
-        self.search_report = search_report
+        self.__search_report = search_report
 
         self.big_line = \
             '---------------------------------------------------------'
@@ -27,11 +27,15 @@ class UserInterface:
         # statistic values for the overall report
 
         # count removed files
-        self.removed_files = 0
+        self._removed_files = 0
         # count errors
-        self.errors = 0
+        self._errors = 0
         # count cleaned size
-        self.size_cleaned = 0
+        self._size_cleaned = 0
+
+    @property
+    def search_report(self):
+        return self.__search_report
 
     def exceptions_information(self):
         """Information about exceptions that occurred during the search"""
@@ -163,9 +167,9 @@ class UserInterface:
         print('Size_cleaned:', cleaner_report[2])
 
         # add their values to overall variables
-        self.removed_files += cleaner_report[1]
-        self.size_cleaned += cleaner_report[2]
-        self.errors += cleaner_report[3]
+        self._removed_files += cleaner_report[1]
+        self._size_cleaned += cleaner_report[2]
+        self._errors += cleaner_report[3]
 
     def overall(self):
         """The overall report that covers all statistics"""
@@ -175,9 +179,9 @@ class UserInterface:
         print(self.big_line)
 
         # print overall information
-        print('Files removed:', self.removed_files)
-        print('Errors:', self.errors)
-        print('Size_cleaned:', self.size_cleaned)
+        print('Files removed:', self._removed_files)
+        print('Errors:', self._errors)
+        print('Size_cleaned:', self._size_cleaned)
 
 
 def main():
@@ -186,8 +190,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-

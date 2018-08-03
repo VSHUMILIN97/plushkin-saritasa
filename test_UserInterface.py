@@ -31,7 +31,7 @@ class TestUserInterface(unittest.TestCase):
 
     def test_general_information(self):
 
-        self.ui.show_cleaning_input(0)
+        self.ui.general_information()
 
     def test_exceptions(self):
 
