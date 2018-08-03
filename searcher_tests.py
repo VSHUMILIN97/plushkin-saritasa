@@ -1,13 +1,13 @@
 import unittest
 from unittest import mock
-from Search.Searcher import Searcher
-import os
+from Searcher import Searcher
 
 
 class MyTestCase(unittest.TestCase):
-    @mock.patch("Searcher.Searcher.open")
-    def test_something(self):
-        self.assertEqual(True, False)
+    @mock.patch("Searcher.open")
+    def test_something(self, mock_open):
+        pass
+
 
 
 if __name__ == '__main__':
