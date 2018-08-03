@@ -19,20 +19,18 @@ class Cleaner:
 
     __slots__ = ['__delete_group',
                  '__errors_occurred',
-                 '__error_count',
                  '__size_cleaned',
                  '__files_removed']
 
     def __init__(self, group, index):
         try:
             self.__delete_group = [x for x in group]
+            self.__delete_group.pop(index)
         except (TypeError, ValueError, KeyError):
             self.__delete_group = []
         self.__errors_occurred = []
-        self.__error_count = 0
         self.__size_cleaned = 0
         self.__files_removed = 0
-        self.__delete_group.pop(index)
 
     def __remove(self):
         """ Inner method that tries to delete all of the files
@@ -52,17 +50,15 @@ class Cleaner:
                         f'{path} cannot be removed\n '
                         f'{e}\n')
                     self.__size_cleaned = 0
-                    self.__errors_occurred += 1
             else:
                 self.__errors_occurred.append(f'{path} is not a file\n')
 
     def report(self):
         """ Method runs inner method __remove to store values in
 
-
         Returns:
             tuple: Stores all the attributes for displaying in UI
         """
         self.__remove()
         return self.__errors_occurred, self.__files_removed, \
-               self.__size_cleaned, self.__error_count,
+               self.__size_cleaned, len(self.__errors_occurred),
