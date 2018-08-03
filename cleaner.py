@@ -60,5 +60,5 @@ class Cleaner:
             tuple: Stores all the attributes for displaying in UI
         """
         self.__remove()
-        return self.__errors_occurred, self.__files_removed, \
-               self.__size_cleaned, len(self.__errors_occurred),
+        return (self.__errors_occurred, self.__files_removed,
+                self.__size_cleaned, len(self.__errors_occurred),)

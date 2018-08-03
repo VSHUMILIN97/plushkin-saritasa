@@ -11,11 +11,15 @@ class CleanerTest(unittest.TestCase):
     def test_cleaner_instance_get_attribute_fails(self):
         """ Checks that it is not possible to get attribute"""
         cc = Cleaner(['/path/to/file', '/another/one'], 1)
-        with self.assertRaises(AttributeError) as cm:
-            _ = cc.__files_removed
+        with self.assertRaises(AttributeError):
+            print(cc.__files_removed)
 
     def test_cleaner_erase_given_data(self):
-        """ Checks if it is possible to delete a file """
+        """ Checks if it is possible to delete a file
+
+        Notes:
+             58 is hard-coded. DO NOT CHANGE
+        """
         file = open('plushkin1', 'w+')
         file.close()
         file = open('plushkin2', 'w+')
