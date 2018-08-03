@@ -13,18 +13,18 @@ class Searcher:
         Returns: FileManager - contains all found file clones
 
         """
-        errors_reading_files = set()  # dict: {file_name: error}
+        errors_reading_files = set()  # dict: {file_name}
         files = Searcher.get_all_files_in_path(path)
         number_of_scanned_folders = len([x[0] for x in os.walk(path)])
         groups_of_clones = {1: []}  # dict: {group_id:[file_names]}
         id = 0
         for file_name in files:
             try:
-                file1 = open(file_name, 'rb')
+                file1 = open(file_name)
                 for group in groups_of_clones.values():
                     flag_break = False
                     for file2_name in group:
-                        file2 = open(file2_name, 'rb')
+                        file2 = open(file2_name)
                         if filecmp.cmp(file1, file2):
                             group.append(file_name)
                             flag_break = True
@@ -34,7 +34,7 @@ class Searcher:
                 else:
                     groups_of_clones[id] = [file_name]
                     id += 1
-                    
+
             except BaseException:
                 errors_reading_files.add(file_name)
 
@@ -44,3 +44,8 @@ class Searcher:
     @staticmethod
     def get_all_files_in_path(path):
         return tuple(glob.glob("{}/**/.*".format(path), recursive=True))
+
+    @staticmethod
+    def test():
+        print(open('asdf'))
+
