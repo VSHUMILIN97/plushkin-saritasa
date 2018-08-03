@@ -3,32 +3,66 @@ import sys
 
 
 class Cleaner:
+    """ Class that erase all files that stored in list
+        except one, which index was fetched from UI
 
-    __slots__ = ['group', 'error_counter', 'error_list', 'size_cleaned']
+    Attributes:
+        group (list): Stores all paths to files that are duplicates
+        index (int): Index to path of the file,
+                    that that user want to keep
+
+    Notes:
+        It is important, that this class is initialised every time
+        for the every new group
+        Slots strictly disallow to add new attributes for Cleaner instance
+    """
+
+    __slots__ = ['__delete_group',
+                 '__errors_occurred',
+                 '__error_count',
+                 '__size_cleaned',
+                 '__files_removed']
 
     def __init__(self, group, index):
-        self.group = [x for x in group]
-        self.error_counter = 0
-        self.error_list = []
-        self.size_cleaned = 0
-        self.group.pop(index)
+        try:
+            self.__delete_group = [x for x in group]
+        except (TypeError, ValueError, KeyError):
+            self.__delete_group = []
+        self.__errors_occurred = []
+        self.__error_count = 0
+        self.__size_cleaned = 0
+        self.__files_removed = 0
+        self.__delete_group.pop(index)
 
     def __remove(self):
-        for path in self.group:
+        """ Inner method that tries to delete all of the files
+            given is group list and change inner attributes
+
+        Returns:
+            None
+        """
+        for path in self.__delete_group:
             if os.path.isfile(path):
                 try:
-                    self.size_cleaned = sys.getsizeof(path)
+                    self.__size_cleaned = sys.getsizeof(path)
                     os.remove(path)
+                    self.__files_removed += 1
                 except OSError as e:
-                    self.error_list.append(f'{path} cannot be removed\n'
-                                           f'{e}')
-                    self.size_cleaned = 0
-                    self.error_counter += 1
+                    self.__errors_occurred.append(
+                        f'{path} cannot be removed\n '
+                        f'{e}\n')
+                    self.__size_cleaned = 0
+                    self.__errors_occurred += 1
             else:
-                self.error_list.append(f'{path} is not a file')
-
-        return self.error_list, self.size_cleaned, self.error_counter,
+                self.__errors_occurred.append(f'{path} is not a file\n')
 
     def report(self):
-        return self.__remove()
+        """ Method runs inner method __remove to store values in
 
+
+        Returns:
+            tuple: Stores all the attributes for displaying in UI
+        """
+        self.__remove()
+        return self.__errors_occurred, self.__files_removed, \
+               self.__size_cleaned, self.__error_count,
