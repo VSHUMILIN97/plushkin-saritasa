@@ -47,7 +47,7 @@ class Cleaner(object):
                 self.__size_cleaned = sys.getsizeof(path)
                 os.remove(path)
                 self.__files_removed += 1
-            except OSError as e:
+            except OSError:
                 self.__errors_occurred.append(
                     f'{path} cannot be removed. No such file or directory!')
                 self.__size_cleaned = 0
