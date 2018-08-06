@@ -4,7 +4,7 @@ import os
 from FileManager import FileManager
 
 
-class Searcher:
+class Searcher(object):
     """
     Class that provides finding all clone files
      in specified path recursively
@@ -50,7 +50,7 @@ class Searcher:
                     groups_of_clones[id] = [file_name]
                     id += 1
 
-            except BaseException:
+            except Exception:
                 errors_reading_files.add(file_name)
 
         # exclude 1 size groups
