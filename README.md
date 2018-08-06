@@ -21,7 +21,7 @@ It is very simple. Like a piece of cake.
 #### or you can do this (in case you in the directory you want to start analyse)
 ```python3 plushkin.py .```
 
-See? That's very simple
+See? That's very simple.
 However, if you feel confident about Kate's photoes, try **this**
 
 ```python3 plushkin.py /path/to/folder -d```
