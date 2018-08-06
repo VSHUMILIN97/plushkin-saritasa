@@ -4,7 +4,7 @@ import os
 from FileManager import FileManager
 
 
-class Searcher:
+class Searcher(object):
     """
     Class that provides finding all clone files
      in specified path recursively
@@ -26,9 +26,14 @@ class Searcher:
         id = 0
         for file_name in files:
             # zero size files will be ignored
-            if not os.path.getsize(file_name):
-                continue
             try:
+                if not os.path.getsize(file_name):
+                    continue
+
+                # checking that file can be opened
+                with open(file_name, 'rb') as f:
+                    pass
+
                 for group in groups_of_clones.values():
                     flag_break = False
 
@@ -45,7 +50,7 @@ class Searcher:
                     groups_of_clones[id] = [file_name]
                     id += 1
 
-            except BaseException:
+            except Exception:
                 errors_reading_files.add(file_name)
 
         # exclude 1 size groups
@@ -62,3 +67,7 @@ class Searcher:
     @staticmethod
     def get_all_files_in_path(path):
         return tuple(glob.glob("{}/**/*.*".format(path), recursive=True))
+
+    @staticmethod
+    def test():
+        print(glob.glob('afdsf'))
