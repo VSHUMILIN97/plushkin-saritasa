@@ -1,5 +1,15 @@
 import os
 import sys
+import collections
+
+REPORT_TEMPLATE = collections.namedtuple(
+    'REPORT', (
+        'errors_occurred',
+        'files_removed',
+        'size_cleaned',
+        'errors_counter',
+    )
+)
 
 
 class Cleaner(object):
@@ -34,7 +44,8 @@ class Cleaner(object):
 
     def __remove(self):
         """ Inner method that tries to delete all of the files
-            given is group list and change inner attributes
+            given in group list and change inner attributes to
+            complete the report file.
 
         Returns:
             None
@@ -59,5 +70,9 @@ class Cleaner(object):
             tuple: Stores all the attributes for displaying in UI
         """
         self.__remove()
-        return (self.__errors_occurred, self.__files_removed,
-                self.__size_cleaned, len(self.__errors_occurred),)
+        return REPORT_TEMPLATE(
+            errors_occurred=self.__errors_occurred,
+            files_removed=self.__files_removed,
+            size_cleaned=self.__size_cleaned,
+            errors_counter=len(self.__errors_occurred),
+        )
