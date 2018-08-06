@@ -31,7 +31,7 @@ class CleanerTest(unittest.TestCase):
         """ Checks if mistakes returned correctly """
         notcc = Cleaner(['pp', 'tt'], 1)
         self.assertEqual(notcc.report(),
-                         (['pp is not a file\n'], 0, 0, 1))
+                         (['pp not found\n'], 0, 0, 1))
 
     def test_app_not_crash_on_invalid_data_type(self):
         """ Checks if app will crash on invalid data type """

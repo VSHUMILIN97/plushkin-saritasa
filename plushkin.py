@@ -14,7 +14,7 @@ import cleaner as clr
               metavar='<flag>')
 @click.argument('path')
 def plushkin(path, delete):
-    """ This function fetch all the duplicates from your directory path
+    """ This script shows all the duplicates stored in your folders
         Optionally they can be deleted through interactive UI(use flag -d)
     """
     sys.excepthook = excepthook
