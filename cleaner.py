@@ -2,7 +2,7 @@ import os
 import sys
 
 
-class Cleaner:
+class Cleaner(object):
     """ Class that erase all files that stored in list
         except one, which index was fetched from UI
 
@@ -40,20 +40,19 @@ class Cleaner:
             None
         """
         for path in self.__delete_group:
-            if os.path.isfile(path):
-                try:
-                    self.__size_cleaned = sys.getsizeof(path)
-                    os.remove(path)
-                    self.__files_removed += 1
-                except OSError as e:
-                    self.__errors_occurred.append(
-                        f'{path} cannot be removed\n '
-                        f'{e}\n')
-                    self.__size_cleaned = 0
-            else:
-                self.__errors_occurred.append(f'{path} not found\n')
+            if not os.path.isfile(path):
+                self.__errors_occurred.append(f'{path} is not a file!')
+                continue
+            try:
+                self.__size_cleaned = sys.getsizeof(path)
+                os.remove(path)
+                self.__files_removed += 1
+            except OSError as e:
+                self.__errors_occurred.append(
+                    f'{path} cannot be removed. No such file or directory!')
+                self.__size_cleaned = 0
 
-    def report(self):
+    def clean_and_report(self):
         """ Method runs inner method __remove to store values in
 
         Returns:

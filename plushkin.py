@@ -25,7 +25,8 @@ def plushkin(path, delete):
         if delete:
             for group_index in range(interface_reports.clone_groups_len):
                 dup_group, save_index = interface_reports.show_cleaning_input(group_index)
-                interface_reports.report(clr.Cleaner(dup_group, save_index).report())
+                interface_reports.report(clr.Cleaner(dup_group, save_index)
+                                         .clean_and_report())
             interface_reports.overall()
     else:
         raise DirectoryNotFoundException('Path not found')

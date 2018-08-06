@@ -25,15 +25,15 @@ class CleanerTest(unittest.TestCase):
         file = open('plushkin2', 'w+')
         file.close()
         cc = Cleaner(['plushkin1', 'plushkin2'], 0)
-        self.assertEqual(cc.report(), ([], 1, 58, 0))
+        self.assertEqual(cc.clean_and_report(), ([], 1, 58, 0))
 
     def test_cleaner_return_mistakes_correctly(self):
         """ Checks if mistakes returned correctly """
         notcc = Cleaner(['pp', 'tt'], 1)
-        self.assertEqual(notcc.report(),
-                         (['pp not found\n'], 0, 0, 1))
+        self.assertEqual(notcc.clean_and_report(),
+                         (['pp is not a file!'], 0, 0, 1))
 
     def test_app_not_crash_on_invalid_data_type(self):
         """ Checks if app will crash on invalid data type """
         cc = Cleaner(1, 2)
-        self.assertEqual(cc.report(), ([], 0, 0, 0))
+        self.assertEqual(cc.clean_and_report(), ([], 0, 0, 0))
